@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David Campos | Dev & Agrocomputação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: "#1b4332",
+            "forest-light": "#2d6a4f",
+            "forest-dark": "#0d2b1e",
+            neon: "#52b788",
+            "neon-bright": "#74c69d",
+            "neon-dim": "#40916c",
+            surface: "#181c1f",
+            "surface-2": "#1e2428"
+          },
+          fontFamily: {
+            display: ["Syne", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"],
+            body: ["Outfit", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, html { scroll-behavior: smooth; }
+    body { background-color: #181c1f; color: #e8f5e9; font-family: "Outfit", sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #181c1f; }
+    ::-webkit-scrollbar-thumb { background: #2d6a4f; border-radius: 3px; }
+    .hero-grid { background-image: linear-gradient(rgba(82,183,136,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(82,183,136,.055) 1px,transparent 1px); background-size: 52px 52px; animation: gridDrift 24s linear infinite; }
+    @keyframes gridDrift { 0% { background-position: 0 0; } 100% { background-position: 52px 52px; } }
+    .nav-link { font-family: "JetBrains Mono", monospace; font-size: .75rem; color: rgba(232,245,233,.5); transition: color .2s; letter-spacing: .07em; }
+    .nav-link:hover { color: #74c69d; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-family: "JetBrains Mono", monospace; font-size: .63rem; letter-spacing: .09em; padding: 4px 11px; border-radius: 2px; background: rgba(82,183,136,.1); border: 1px solid rgba(82,183,136,.28); color: #74c69d; }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #52b788; box-shadow: 0 0 6px #52b788; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    .section-label { font-family: "JetBrains Mono", monospace; font-size: .67rem; letter-spacing: .22em; color: #52b788; text-transform: uppercase; }
+    .skill-pill { font-family: "JetBrains Mono", monospace; font-size: .68rem; padding: 4px 12px; border-radius: 2px; background: rgba(27,67,50,.5); border: 1px solid rgba(82,183,136,.2); color: #a7d4b8; }
+    .glass-card { background: rgba(30,36,40,.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(82,183,136,.16); transition: border-color .3s, box-shadow .3s, transform .3s; }
+    .glass-card:hover { border-color: rgba(82,183,136,.5); box-shadow: 0 0 32px rgba(82,183,136,.13), 0 12px 40px rgba(0,0,0,.45); transform: translateY(-5px); }
+    .proj-card { background: rgba(24,28,31,.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(82,183,136,.13); transition: transform .3s, box-shadow .3s, border-color .3s; overflow: hidden; }
+    .proj-card:hover { transform: translateY(-6px); box-shadow: 0 0 40px rgba(82,183,136,.18); border-color: rgba(82,183,136,.45); }
+    .proj-overlay{opacity:0;transition:opacity .35s}.proj-card:hover .proj-overlay{opacity:1}
+    .tl-dot{width:10px;height:10px;border-radius:50%;background:#52b788;box-shadow:0 0 8px #52b788;flex-shrink:0;margin-top:5px}
+    .ideathon-card{background:linear-gradient(135deg,#1e2d26 0%,#1a2520 100%);border:1px solid rgba(82,183,136,.2);transition:transform .3s,box-shadow .3s}
+    .ideathon-card:hover{transform:translateY(-4px);box-shadow:0 0 32px rgba(82,183,136,.18)}
+    .photo-frame-outer{position:relative;transform:rotate(2.5deg);transition:transform .4s ease}
+    .photo-frame-outer:hover{transform:rotate(0deg) scale(1.02)}
+    .photo-capa{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;border-radius:16px;filter:brightness(.45) saturate(.7)}
+    .photo-glass-overlay{position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(27,67,50,.55) 0%,rgba(13,43,30,.35) 50%,rgba(0,0,0,.2) 100%);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+    .photo-perfil-wrap{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:110px;height:110px;border-radius:50%;border:3px solid rgba(82,183,136,.6);box-shadow:0 0 24px rgba(82,183,136,.3),0 0 0 6px rgba(82,183,136,.08);overflow:hidden;background:#1b4332;z-index:20}
+    .photo-perfil-wrap img{width:100%;height:100%;object-fit:cover}
+    .hero-gradient-text{background:linear-gradient(135deg,#e8f5e9 20%,#74c69d 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .wa-cta{background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 100%);border:1px solid rgba(82,183,136,.4);transition:all .3s}
+    .wa-cta:hover{box-shadow:0 0 28px rgba(82,183,136,.35);border-color:rgba(82,183,136,.7);transform:translateY(-2px)}
+    .contact-card{background:rgba(30,36,40,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.07);transition:all .25s}
+    .contact-card:hover{border-color:rgba(82,183,136,.28);background:rgba(27,67,50,.25)}
+    .icon-box{width:44px;height:44px;border-radius:8px;background:rgba(27,67,50,.6);border:1px solid rgba(82,183,136,.22);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+    .contact-card:hover .icon-box,.glass-card:hover .icon-box{background:rgba(27,67,50,.9);border-color:rgba(82,183,136,.4)}
+    @media(max-width:640px){.hero-name{font-size:3rem!important}}
+  </style>
+</head>
+<body class="antialiased">
+
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300" style="background:rgba(24,28,31,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(82,183,136,.09);">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-2.5 group">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-md font-display font-800 text-sm" style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.35);color:#74c69d;">DC</span>
+      <span class="font-display font-600 text-sm text-white/70 group-hover:text-white transition-colors">David Campos</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#diferenciais" class="nav-link">_habilidades</a>
+      <a href="#conquistas" class="nav-link">_conquistas</a>
+      <a href="#projetos" class="nav-link">_projetos</a>
+      <a href="#sobre" class="nav-link">_sobre</a>
+      <a href="#contato" class="font-mono text-xs px-4 py-2 rounded-md border border-neon/35 text-neon hover:bg-neon/10 transition-colors tracking-wide">contato &rarr;</a>
+    </div>
+    <button id="menuBtn" onclick="toggleMenu()" class="md:hidden text-neon/70 hover:text-neon"><i data-lucide="menu" class="w-5 h-5"></i></button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-5 flex flex-col gap-4 border-t border-white/5 pt-4">
+    <a href="#diferenciais" class="nav-link text-sm" onclick="toggleMenu()">_habilidades</a>
+    <a href="#conquistas" class="nav-link text-sm" onclick="toggleMenu()">_conquistas</a>
+    <a href="#projetos" class="nav-link text-sm" onclick="toggleMenu()">_projetos</a>
+    <a href="#sobre" class="nav-link text-sm" onclick="toggleMenu()">_sobre</a>
+    <a href="#contato" class="nav-link text-sm" onclick="toggleMenu()">_contato</a>
+  </div>
+</nav>
+
+<section id="home" class="relative min-h-screen flex items-center hero-grid overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(27,67,50,.6) 0%,transparent 70%);"></div>
+  <span class="absolute top-24 left-6 font-mono text-xs text-neon/20 hidden xl:block select-none">19&#176;44&#39;56&quot;S</span>
+  <span class="absolute top-24 right-6 font-mono text-xs text-neon/20 hidden xl:block select-none">47&#176;55&#39;48&quot;W</span>
+  <span class="absolute bottom-10 left-6 font-mono text-xs text-neon/15 hidden xl:block select-none">ALT: 120m &middot; UBERABA-MG</span>
+  <div class="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="mb-7"><span class="badge"><span class="badge-dot"></span>DISPON&Iacute;VEL PARA PROJETOS &amp; OR&Ccedil;AMENTOS</span></div>
+        <h1 class="hero-name font-display font-800 leading-none mb-1" style="font-size:clamp(3rem,6vw,5rem);">
+          <span class="hero-gradient-text">David Campos</span>
+        </h1>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-px bg-neon/40"></div>
+          <p class="font-mono text-xs text-neon/70 tracking-widest uppercase">Do Campo ao C&oacute;digo.</p>
+        </div>
+        <p class="font-body text-base md:text-lg text-white/50 leading-relaxed mb-8 max-w-lg">
+          Desenvolvedor em Transi&ccedil;&atilde;o &middot; Especialista em <span class="text-white/75">Geoprocessamento</span>, <span class="text-white/75">Drones Agr&iacute;colas</span> &amp; Tecnologia da Agrocomputa&ccedil;&atilde;o na <span class="text-neon font-500">FAZU</span>.
+        </p>
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="#projetos" class="inline-flex items-center gap-2 px-6 py-3 rounded-md font-display font-600 text-sm text-neon" style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.4);box-shadow:0 0 20px rgba(82,183,136,.12);transition:all .25s;">
+            Ver Projetos <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="https://wa.me/5534991538364?text=Ol%C3%A1%20David,%20vi%20seu%20portf%C3%B3lio!" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-md font-display font-600 text-sm text-white/70 border border-white/12 hover:border-white/25 hover:text-white/90 transition-all">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+          </a>
+        </div>
+        <div class="flex gap-8">
+          <div><div class="font-display font-800 text-3xl text-neon leading-none">3+</div><div class="font-mono text-xs text-white/30 mt-1">anos no campo</div></div>
+          <div class="border-l border-white/8 pl-8"><div class="font-display font-800 text-3xl text-neon leading-none">2&times;</div><div class="font-mono text-xs text-white/30 mt-1">Ideathon p&oacute;dio</div></div>
+          <div class="border-l border-white/8 pl-8"><div class="font-display font-800 text-3xl text-neon leading-none">PJ</div><div class="font-mono text-xs text-white/30 mt-1">independente</div></div>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center items-center">
+        <div class="photo-frame-outer" style="width:360px;">
+          <div class="relative rounded-2xl overflow-visible" style="height:420px;border:1px solid rgba(82,183,136,.25);box-shadow:0 0 60px rgba(82,183,136,.12),0 24px 64px rgba(0,0,0,.5);">
+            <img src="img/hero-capa.jpg" alt="David Campos" class="photo-capa" onerror="this.style.display='none'" />
+            <div class="photo-glass-overlay"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
+              <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-2" style="background:rgba(27,67,50,.6);border:1px solid rgba(82,183,136,.3);backdrop-filter:blur(8px);">
+                <i data-lucide="plane" class="w-8 h-8 text-neon opacity-80"></i>
+              </div>
+              <p class="font-mono text-xs text-neon/60 tracking-widest">AGROCOMPUTA&Ccedil;&Atilde;O &middot; FAZU</p>
+              <div class="mt-4 px-5 py-2 rounded" style="background:rgba(0,0,0,.35);border:1px solid rgba(82,183,136,.15);backdrop-filter:blur(6px);">
+                <p class="font-mono text-xs text-white/35">19&#176;44&#39;S &middot; 47&#176;55&#39;W &middot; 120m alt</p>
+              </div>
+            </div>
+            <div class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-neon/50 rounded-tl-2xl"></div>
+            <div class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-neon/50 rounded-tr-2xl"></div>
+            <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-neon/50 rounded-bl-2xl"></div>
+            <div class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-neon/50 rounded-br-2xl"></div>
+          </div>
+          <div class="photo-perfil-wrap"><img src="img/perfil.jpg" alt="David Campos" /></div>
+          <div class="absolute -bottom-14 left-0 right-0 text-center">
+            <p class="font-display font-700 text-white text-base">David Campos</p>
+            <p class="font-mono text-xs text-neon/60 mt-0.5">Geoprocessamento &middot; Dev &middot; Drones</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-30 animate-bounce">
+    <span class="font-mono text-xs text-neon">scroll</span>
+    <i data-lucide="chevron-down" class="w-4 h-4 text-neon"></i>
+  </div>
+</section>
+
+<section id="diferenciais" class="py-24" style="background:#1e2428;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-12 reveal"><p class="section-label mb-2">// 01 &mdash; habilidades</p><h2 class="font-display font-700 text-3xl md:text-4xl text-white">Tr&ecirc;s mundos. Uma carreira.</h2></div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass-card rounded-xl p-7 reveal" style="transition-delay:.08s">
+        <div class="icon-box mb-5"><i data-lucide="code-2" class="w-5 h-5 text-neon"></i></div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Desenvolvimento Web</h3>
+        <p class="font-body text-white/42 text-sm leading-relaxed mb-5">Constru&ccedil;&atilde;o de interfaces, dashboards e automa&ccedil;&otilde;es voltadas ao agroneg&oacute;cio, com foco em dados e usabilidade de campo.</p>
+        <div class="flex flex-wrap gap-2"><span class="skill-pill">JavaScript</span><span class="skill-pill">HTML5/CSS3</span><span class="skill-pill">Python</span><span class="skill-pill">Power BI</span></div>
+      </div>
+      <div class="glass-card rounded-xl p-7 reveal" style="transition-delay:.18s">
+        <div class="icon-box mb-5"><i data-lucide="map" class="w-5 h-5 text-neon"></i></div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Geoprocessamento</h3>
+        <p class="font-body text-white/42 text-sm leading-relaxed mb-5">An&aacute;lise de imagens multiespectrais, ortomosaicos, modelos digitais e mapas tem&aacute;ticos para agricultura de precis&atilde;o.</p>
+        <div class="flex flex-wrap gap-2"><span class="skill-pill">QGIS / SIG</span><span class="skill-pill">NDVI / NDRE</span><span class="skill-pill">Ortomosaico</span><span class="skill-pill">GPS / MDE</span></div>
+      </div>
+      <div class="glass-card rounded-xl p-7 reveal" style="transition-delay:.28s">
+        <div class="icon-box mb-5"><i data-lucide="navigation" class="w-5 h-5 text-neon"></i></div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Opera&ccedil;&otilde;es com Drones</h3>
+        <p class="font-body text-white/42 text-sm leading-relaxed mb-5">Planejamento e execu&ccedil;&atilde;o de voos para pulveriza&ccedil;&atilde;o e sensoriamento remoto. Certificado CAAR &middot; Monitor de cursos pr&aacute;ticos.</p>
+        <div class="flex flex-wrap gap-2"><span class="skill-pill">Pulveriza&ccedil;&atilde;o</span><span class="skill-pill">Sensoriamento</span><span class="skill-pill">Rota de Voo</span><span class="skill-pill">CAAR cert.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="conquistas" class="py-24 relative overflow-hidden" style="background:linear-gradient(180deg,#181c1f 0%,#0d2218 50%,#181c1f 100%);">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(27,67,50,.35) 0%,transparent 70%);"></div>
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="mb-12 reveal"><p class="section-label mb-2">// 02 &mdash; conquistas</p><h2 class="font-display font-700 text-3xl md:text-4xl text-white">Ideathon UbyAgro</h2><p class="text-white/38 font-body mt-2 max-w-lg text-sm">Competi&ccedil;&otilde;es de inova&ccedil;&atilde;o tecnol&oacute;gica com parceria FAZU &amp; mercado agro.</p></div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="ideathon-card rounded-xl p-8 reveal" style="transition-delay:.1s">
+        <div class="flex items-start justify-between mb-5"><div><span class="font-mono text-xs text-white/28">2024</span><div class="text-5xl mt-1 leading-none">&#127947;</div></div><span class="badge" style="background:rgba(255,200,0,.07);border-color:rgba(255,200,0,.28);color:#f4c542;">1&ordm; LUGAR</span></div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Desafio ABCZ</h3>
+        <p class="font-body text-sm text-white/42 leading-relaxed">Solu&ccedil;&atilde;o tecnol&oacute;gica para otimiza&ccedil;&atilde;o do processamento de dados genot&iacute;picos de zebु&iacute;nos &mdash; Ideathon UbyAgro &amp; ABCZ, novembro de 2024.</p>
+        <div class="mt-4 pt-4 border-t border-white/6 flex flex-wrap gap-2"><span class="skill-pill">Dados Genot&iacute;picos</span><span class="skill-pill">Zebु&iacute;nos</span><span class="skill-pill">AgTech</span></div>
+      </div>
+      <div class="ideathon-card rounded-xl p-8 reveal" style="transition-delay:.2s">
+        <div class="flex items-start justify-between mb-5"><div><span class="font-mono text-xs text-white/28">2025</span><div class="text-5xl mt-1 leading-none">&#127948;</div></div><span class="badge" style="background:rgba(192,192,192,.07);border-color:rgba(192,192,192,.28);color:#c0c0c0;">2&ordm; LUGAR</span></div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Desafio UBYAGRO</h3>
+        <p class="font-body text-sm text-white/42 leading-relaxed">Plataforma com LLM para integra&ccedil;&atilde;o e an&aacute;lise de dados de P&amp;D, Marketing e Regulat&oacute;rios &mdash; centralizando patentes, registros e concorr&ecirc;ncia para decis&otilde;es mais eficientes.</p>
+        <div class="mt-4 pt-4 border-t border-white/6 flex flex-wrap gap-2"><span class="skill-pill">LLM</span><span class="skill-pill">An&aacute;lise de Dados</span><span class="skill-pill">P&amp;D</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projetos" class="py-24" style="background:#1e2428;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-12 reveal"><p class="section-label mb-2">// 03 &mdash; projetos</p><h2 class="font-display font-700 text-3xl md:text-4xl text-white">O que construo.</h2></div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="proj-card rounded-xl reveal" style="transition-delay:.08s">
+        <div class="relative h-44" style="background:linear-gradient(135deg,#1b4332 0%,#0d2b1e 100%);">
+          <div class="absolute inset-0 opacity-15" style="background-image:linear-gradient(rgba(82,183,136,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(82,183,136,.4) 1px,transparent 1px);background-size:22px 22px;"></div>
+          <div class="absolute inset-0 flex items-center justify-center"><i data-lucide="bar-chart-2" class="w-14 h-14 text-neon opacity-35"></i></div>
+          <div class="proj-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(27,67,50,.82);backdrop-filter:blur(4px);"><span class="font-mono text-sm text-neon border border-neon/40 px-4 py-2 rounded-md">Em breve &rarr;</span></div>
+        </div>
+        <div class="p-6"><span class="badge mb-3">Power BI</span><h3 class="font-display font-700 text-lg text-white mb-2">Dashboard Agr&iacute;cola</h3><p class="font-body text-sm text-white/38 leading-relaxed">Painel interativo de indicadores operacionais para gest&atilde;o de pulveriza&ccedil;&atilde;o com drones agr&iacute;colas.</p></div>
+      </div>
+      <div class="proj-card rounded-xl reveal" style="transition-delay:.18s">
+        <div class="relative h-44" style="background:linear-gradient(135deg,#1a2d26 0%,#14231e 100%);">
+          <div class="absolute inset-0 flex items-center justify-center"><i data-lucide="calculator" class="w-14 h-14 text-neon opacity-35"></i></div>
+          <div class="proj-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(27,67,50,.82);backdrop-filter:blur(4px);"><span class="font-mono text-sm text-neon border border-neon/40 px-4 py-2 rounded-md">Em breve &rarr;</span></div>
+        </div>
+        <div class="p-6"><span class="badge mb-3">JavaScript</span><h3 class="font-display font-700 text-lg text-white mb-2">Calculadora de Vaz&atilde;o</h3><p class="font-body text-sm text-white/38 leading-relaxed">Ferramenta web para c&aacute;lculo de vaz&atilde;o e calibra&ccedil;&atilde;o de bicos em opera&ccedil;&otilde;es com drones agr&iacute;colas.</p></div>
+      </div>
+      <div class="proj-card rounded-xl reveal" style="transition-delay:.28s">
+        <div class="relative h-44" style="background:linear-gradient(135deg,#0f2d1a 0%,#091f11 100%);">
+          <div class="absolute inset-0 flex items-center justify-center"><i data-lucide="layers" class="w-14 h-14 text-neon opacity-35"></i></div>
+          <div class="proj-overlay absolute inset-0 flex items-center justify-center" style="background:rgba(27,67,50,.82);backdrop-filter:blur(4px);"><span class="font-mono text-sm text-neon border border-neon/40 px-4 py-2 rounded-md">Em breve &rarr;</span></div>
+        </div>
+        <div class="p-6"><span class="badge mb-3">QGIS &middot; SIG</span><h3 class="font-display font-700 text-lg text-white mb-2">&Iacute;ndices Vegetativos</h3><p class="font-body text-sm text-white/38 leading-relaxed">Mapeamento e an&aacute;lise de NDVI/NDRE em &aacute;reas de produ&ccedil;&atilde;o de gr&atilde;os com relat&oacute;rios t&eacute;cnicos de variabilidade.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="py-24" style="background:#181c1f;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="reveal">
+        <p class="section-label mb-3">// 04 &mdash; sobre mim</p>
+        <h2 class="font-display font-700 text-3xl md:text-4xl text-white mb-6 leading-tight">Do campo ao c&oacute;digo.<br/><span class="text-neon">Sem abrir m&atilde;o de nenhum.</span></h2>
+        <p class="font-body text-white/48 leading-relaxed mb-4">Meu nome &eacute; <strong class="text-white/80">David Campos</strong>, tenho 29 anos e sou de Uberaba/MG. Minha trajet&oacute;ria nasceu no campo &mdash; como piloto de drones agr&iacute;colas e analista de geoprocessamento &mdash; e evoluiu naturalmente para o desenvolvimento de tecnologia aplicada ao agroneg&oacute;cio.</p>
+        <p class="font-body text-white/48 leading-relaxed mb-7">Atualmente curso <strong class="text-white/70">Tecnologia da Agrocomputa&ccedil;&atilde;o na FAZU</strong>, integrando TI, automa&ccedil;&atilde;o e ci&ecirc;ncia de dados com a realidade do campo. Trabalho como PJ independente, conectando problemas reais do setor agr&iacute;cola a solu&ccedil;&otilde;es digitais pr&aacute;ticas.</p>
+        <div class="flex flex-wrap gap-2"><span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">HTML/CSS</span><span class="skill-pill">QGIS</span><span class="skill-pill">Power BI</span><span class="skill-pill">IoT Agr&iacute;cola</span><span class="skill-pill">C++</span></div>
+      </div>
+      <div class="reveal" style="transition-delay:.18s">
+        <p class="font-mono text-xs text-white/22 mb-7 tracking-widest uppercase">&mdash; Experi&ecirc;ncia profissional</p>
+        <div class="flex flex-col gap-0">
+          <div class="flex gap-4"><div class="flex flex-col items-center"><div class="tl-dot"></div><div class="w-px flex-1 bg-neon/12 mt-2"></div></div><div class="pb-7"><span class="font-mono text-xs text-neon/55">2025 &ndash; 2026</span><h4 class="font-display font-600 text-white mt-0.5">Analista de Geoprocessamento</h4><p class="font-mono text-xs text-white/32 mt-0.5">Top Gun Pulveriza&ccedil;&otilde;es &middot; Uberaba, MG</p><p class="font-body text-xs text-white/28 mt-1.5 leading-relaxed">Ortomosaicos, NDVI/NDRE, QGIS, planejamento de voo e relat&oacute;rios t&eacute;cnicos.</p></div></div>
+          <div class="flex gap-4"><div class="flex flex-col items-center"><div class="tl-dot" style="background:#40916c;box-shadow:0 0 6px #40916c;"></div><div class="w-px flex-1 bg-neon/12 mt-2"></div></div><div class="pb-7"><span class="font-mono text-xs text-neon/55">2024 &ndash; 2025</span><h4 class="font-display font-600 text-white mt-0.5">Piloto de Drones Agr&iacute;colas</h4><p class="font-mono text-xs text-white/32 mt-0.5">Pulveriza Drones &middot; Uberaba, MG</p><p class="font-body text-xs text-white/28 mt-1.5 leading-relaxed">Planejamento e execu&ccedil;&atilde;o de opera&ccedil;&otilde;es de pulveriza&ccedil;&atilde;o e an&aacute;lise geoespacial.</p></div></div>
+          <div class="flex gap-4"><div class="flex flex-col items-center"><div class="tl-dot" style="background:#2d6a4f;box-shadow:0 0 6px #2d6a4f;"></div><div class="w-px flex-1 bg-neon/12 mt-2"></div></div><div class="pb-7"><span class="font-mono text-xs text-neon/55">2023 &ndash; 2024</span><h4 class="font-display font-600 text-white mt-0.5">Analista Administrativo JR</h4><p class="font-mono text-xs text-white/32 mt-0.5">Delta Sucroenergia S.A &middot; Uberaba, MG</p><p class="font-body text-xs text-white/28 mt-1.5 leading-relaxed">Mapeamento a&eacute;reo, ortomosaicos, MDE e relat&oacute;rios t&eacute;cnicos agron&ocirc;micos.</p></div></div>
+          <div class="flex gap-4"><div class="flex flex-col items-center"><div class="tl-dot" style="background:#1b4332;box-shadow:0 0 5px #1b4332;"></div></div><div><span class="font-mono text-xs text-neon/55">2022 &ndash; 2023</span><h4 class="font-display font-600 text-white mt-0.5">Assistente de Campo</h4><p class="font-mono text-xs text-white/32 mt-0.5">Shennong Drones Ltda &middot; Uberaba, MG</p><p class="font-body text-xs text-white/28 mt-1.5 leading-relaxed">Apoio operacional, rotas de voo e an&aacute;lise de dados geoespaciais.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contato" class="py-20 border-t border-white/5" style="background:linear-gradient(180deg,#181c1f 0%,#0a1a0e 100%);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-14 items-start">
+      <div class="reveal">
+        <p class="section-label mb-3">// 05 &mdash; contato</p>
+        <h2 class="font-display font-700 text-3xl md:text-4xl text-white mb-4 leading-tight">Vamos construir<br/><span class="text-neon">algo juntos?</span></h2>
+        <p class="font-body text-white/38 leading-relaxed mb-8 max-w-md text-sm">Aberto a projetos de desenvolvimento, consultoria em geoprocessamento, opera&ccedil;&otilde;es com drones ou qualquer ideia que una tecnologia e agroneg&oacute;cio.</p>
+        <a href="https://wa.me/5534991538364?text=Ol%C3%A1%20David,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento!" target="_blank" class="wa-cta inline-flex items-center gap-3 px-7 py-4 rounded-xl font-display font-700 text-base text-neon">
+          <i data-lucide="message-circle" class="w-5 h-5"></i> Solicitar Or&ccedil;amento via WhatsApp <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+        </a>
+        <p class="font-mono text-xs text-white/22 mt-3">(34) 99153-8364 &middot; Resposta r&aacute;pida</p>
+      </div>
+      <div class="reveal flex flex-col gap-3" style="transition-delay:.15s">
+        <a href="mailto:david.ccalmeida@gmail.com" class="contact-card flex items-center gap-4 p-5 rounded-xl group">
+          <div class="icon-box"><i data-lucide="mail" class="w-4 h-4 text-neon"></i></div>
+          <div><p class="font-mono text-xs text-white/28 mb-0.5">e-mail</p><p class="font-body text-sm text-white/65 group-hover:text-white transition-colors">david.ccalmeida@gmail.com</p></div>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 text-white/20 ml-auto group-hover:text-neon/50 transition-colors"></i>
+        </a>
+        <a href="https://wa.me/5534991538364" target="_blank" class="contact-card flex items-center gap-4 p-5 rounded-xl group">
+          <div class="icon-box"><i data-lucide="smartphone" class="w-4 h-4 text-neon"></i></div>
+          <div><p class="font-mono text-xs text-white/28 mb-0.5">whatsapp</p><p class="font-body text-sm text-white/65 group-hover:text-white transition-colors">(34) 99153-8364</p></div>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 text-white/20 ml-auto group-hover:text-neon/50 transition-colors"></i>
+        </a>
+        <a href="https://linkedin.com/in/david-campos-26001425a/" target="_blank" class="contact-card flex items-center gap-4 p-5 rounded-xl group">
+          <div class="icon-box"><i data-lucide="linkedin" class="w-4 h-4 text-neon"></i></div>
+          <div><p class="font-mono text-xs text-white/28 mb-0.5">linkedin</p><p class="font-body text-sm text-white/65 group-hover:text-white transition-colors">david-campos-26001425a</p></div>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 text-white/20 ml-auto group-hover:text-neon/50 transition-colors"></i>
+        </a>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded font-display font-800 text-xs" style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.3);color:#74c69d;">DC</span>
+        <span class="text-white/35 font-display text-sm">David Campos</span>
+      </div>
+      <p class="font-mono text-xs text-white/18">&copy; 2025 David Costa Campos de Almeida &middot; Uberaba, MG</p>
+      <p class="font-mono text-xs text-white/14">Tecnologia da Agrocomputa&ccedil;&atilde;o &middot; FAZU</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  function toggleMenu(){ document.getElementById("mobileMenu").classList.toggle("hidden"); lucide.createIcons(); }
+  document.querySelectorAll(".reveal").forEach(el => {
+    new IntersectionObserver((entries,obs) => { entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("visible"); obs.unobserve(e.target); } }); },{ threshold:.1 }).observe(el);
+  });
+  window.addEventListener("scroll", () => {
+    const nav = document.getElementById("navbar");
+    nav.style.borderBottomColor = window.scrollY > 40 ? "rgba(82,183,136,.18)" : "rgba(82,183,136,.09)";
+    nav.style.boxShadow = window.scrollY > 40 ? "0 4px 32px rgba(0,0,0,.45)" : "none";
+  });
+</script>
+</body>
+</html>

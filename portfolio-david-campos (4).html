@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <!-- SEO & Acessibilidade -->
+  <title>David Campos | Geoprocessamento, Drones Agr&#237;colas &amp; Agrocomputa&#231;&#227;o</title>
+  <meta name="description" content="David Campos &#8212; Profissional independente (PJ) com experi&#234;ncia em Geoprocessamento, Drones Agr&#237;colas e Desenvolvimento Web. Especialista em Agrocomputa&#231;&#227;o (FAZU), Uberaba/MG."/>
+  <meta name="keywords" content="David Campos, Agrocomputa&#231;&#227;o, Geoprocessamento, Drones Agr&#237;colas, QGIS, NDVI, FAZU, Uberaba, JavaScript, Python, Power BI, CNH"/>
+  <meta name="author" content="David Costa Campos de Almeida"/>
+  <meta property="og:title" content="David Campos | Geoprocessamento &amp; Agrocomputa&#231;&#227;o"/>
+  <meta property="og:description" content="Do Campo ao C&#243;digo &#8212; Analista de Geoprocessamento, Piloto de Drones e Desenvolvedor Web."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="pt_BR"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config={theme:{extend:{
+      colors:{forest:"#1b4332","forest-light":"#2d6a4f","forest-dark":"#0d2b1e",
+        neon:"#52b788","neon-bright":"#74c69d","neon-dim":"#40916c",
+        surface:"#181c1f","surface-2":"#1e2428"},
+      fontFamily:{display:["Syne","sans-serif"],mono:["JetBrains Mono","monospace"],body:["Outfit","sans-serif"]}
+    }}}
+  </script>
+  <style>
+    *,html{scroll-behavior:smooth}
+    html{scroll-padding-top:72px}
+    html.dc-noscroll{ overflow:hidden; }
+    
+    body{background-color:#181c1f;color:#e8f5e9;font-family:"Outfit",sans-serif}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#181c1f}::-webkit-scrollbar-thumb{background:#2d6a4f;border-radius:3px}
+
+    /* ── FUNDO ANIMADO SUAVE (gradiente, sem grid intrusivo) ── */
+    @keyframes bgShift{
+      0%  {background-position:0% 50%}
+      50% {background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .hero-bg{
+      background:linear-gradient(135deg,#0d1a13,#181c1f,#0d2b1e,#181c1f,#111816);
+      background-size:300% 300%;
+      animation:bgShift 18s ease infinite;
+    }
+    /* grade discreta apenas no hero */
+    .hero-grid-subtle::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:linear-gradient(rgba(82,183,136,.035) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(82,183,136,.035) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+
+    /* ── NAV ── */
+    .nav-link{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:rgba(232,245,233,.58);transition:color .2s;letter-spacing:.06em}
+    .nav-link:hover,.nav-link.active{color:#74c69d}
+
+    /* ── BADGE ── */
+    .badge{display:inline-flex;align-items:center;gap:5px;font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.08em;padding:4px 10px;border-radius:2px;background:rgba(82,183,136,.1);border:1px solid rgba(82,183,136,.28);color:#74c69d}
+    .badge-dot{width:6px;height:6px;border-radius:50%;background:#52b788;box-shadow:0 0 5px #52b788;animation:pulse 2.2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+    /* ── SECTION LABEL ── */
+    .section-label{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.22em;color:#52b788;text-transform:uppercase}
+
+    /* ── SKILL PILL ── */
+    .skill-pill{font-family:"JetBrains Mono",monospace;font-size:.68rem;padding:5px 12px;border-radius:2px;background:rgba(27,67,50,.5);border:1px solid rgba(82,183,136,.2);color:#b8dfc8;white-space:nowrap}
+    .soft-pill{font-family:"Outfit",sans-serif;font-size:.75rem;padding:6px 14px;border-radius:20px;background:rgba(27,67,50,.35);border:1px solid rgba(82,183,136,.18);color:rgba(232,245,233,.7)}
+
+    /* ── GLASS CARD ── */
+    .glass-card{background:rgba(28,34,38,.65);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(82,183,136,.16);transition:border-color .3s,box-shadow .3s,transform .3s}
+    .glass-card:hover{border-color:rgba(82,183,136,.48);box-shadow:0 0 28px rgba(82,183,136,.12),0 10px 36px rgba(0,0,0,.4);transform:translateY(-4px)}
+
+    /* ── EXP CARD ── */
+    .exp-card{background:rgba(24,28,31,.7);border:1px solid rgba(82,183,136,.13);border-radius:12px;transition:border-color .25s,background .25s}
+    .exp-card:hover{border-color:rgba(82,183,136,.38);background:rgba(27,67,50,.18)}
+
+    /* ── TIMELINE DOT ── */
+    .tl-dot{width:10px;height:10px;border-radius:50%;background:#52b788;box-shadow:0 0 7px #52b788;flex-shrink:0;margin-top:5px}
+
+    /* ── IDEATHON CARD ── */
+    .ideathon-card{background:linear-gradient(135deg,#1e2d26,#1a2520);border:1px solid rgba(82,183,136,.2);transition:transform .3s,box-shadow .3s}
+    .ideathon-card:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(82,183,136,.16)}
+
+    /* gallery-img legacy removido — usando carrossel */
+
+    /* ── TESTIMONIAL ── */
+    .testimonial-card{background:rgba(27,67,50,.18);border:1px solid rgba(82,183,136,.15);border-radius:12px;transition:border-color .25s,background .25s}
+    .testimonial-card:hover{border-color:rgba(82,183,136,.35);background:rgba(27,67,50,.28)}
+
+    /* ── CONTACT CARD ── */
+    .contact-card{background:rgba(30,36,40,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.07);transition:all .22s}
+    .contact-card:hover{border-color:rgba(82,183,136,.28);background:rgba(27,67,50,.25)}
+
+    /* ── ICON BOX ── */
+    .icon-box{width:42px;height:42px;border-radius:8px;background:rgba(27,67,50,.6);border:1px solid rgba(82,183,136,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,border-color .2s}
+    .contact-card:hover .icon-box,.glass-card:hover .icon-box,.exp-card:hover .icon-box{background:rgba(27,67,50,.9);border-color:rgba(82,183,136,.4)}
+
+    /* ── HERO GRADIENT TEXT ── */
+    .hero-gradient-text{background:linear-gradient(135deg,#e8f5e9 20%,#74c69d 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ── REVEAL (mantido, sem exagero) ── */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ── WA CTA ── */
+    .wa-cta{background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.4);transition:all .25s}
+    .wa-cta:hover{box-shadow:0 0 24px rgba(82,183,136,.32);border-color:rgba(82,183,136,.65);transform:translateY(-2px)}
+
+    /* ── SHARE BUTTONS ── */
+    .share-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;font-family:"Outfit",sans-serif;font-size:.8rem;font-weight:600;border:1px solid;transition:all .22s;text-decoration:none}
+    .share-btn-li{border-color:rgba(10,102,194,.4);color:rgba(10,102,194,.9);background:rgba(10,102,194,.08)}
+    .share-btn-li:hover{background:rgba(10,102,194,.18);border-color:rgba(10,102,194,.7)}
+    .share-btn-gh{border-color:rgba(255,255,255,.2);color:rgba(232,245,233,.7);background:rgba(255,255,255,.05)}
+    .share-btn-gh:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.38)}
+    .share-btn-wa{border-color:rgba(82,183,136,.35);color:#74c69d;background:rgba(82,183,136,.08)}
+    .share-btn-wa:hover{background:rgba(82,183,136,.18);border-color:rgba(82,183,136,.6)}
+
+    /* ── PHOTO FRAME HERO ── */
+    /* ── CANVAS TECH BACKGROUND ── */
+    #tech-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.45}
+    @media(max-width:767px){#tech-canvas{display:none}}
+    body>*:not(#tech-canvas){position:relative;z-index:1}
+
+    /* ── GALERIA: slots ── */
+    .gallery-slot{ display:none; }  /* grid antigo desativado */
+
+    /* ── CARROSSEL DE EVENTOS ── */
+    .evt-carousel{
+      position:relative;
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      background:#0d1a13;
+      border:1px solid rgba(82,183,136,.2);
+      box-shadow:0 0 40px rgba(82,183,136,.08);
+      user-select:none;
+    }
+    .evt-carousel-img{
+      width:100%;
+      height:420px;
+      object-fit:cover;
+      display:block;
+      transition:opacity .22s ease;
+    }
+    @media(max-width:768px){ .evt-carousel-img{ height:260px; } }
+    @media(max-width:480px){ .evt-carousel-img{ height:210px; } }
+
+    .evt-carousel-btn{
+      position:absolute;
+      top:50%;transform:translateY(-50%);
+      background:rgba(13,43,30,.85);
+      border:1px solid rgba(82,183,136,.4);
+      color:#74c69d;
+      width:44px;height:44px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:22px;line-height:1;
+      transition:background .15s,transform .15s;
+      z-index:10;
+    }
+    .evt-carousel-btn:hover{
+      background:#1b4332;
+      transform:translateY(-50%) scale(1.1);
+    }
+    .evt-carousel-btn:active{
+      transform:translateY(-50%) scale(.95);
+    }
+    .evt-btn-prev{ left:12px; }
+    .evt-btn-next{ right:12px; }
+    @media(max-width:480px){
+      .evt-carousel-btn{ width:36px;height:36px;font-size:18px; }
+      .evt-btn-prev{ left:6px; }
+      .evt-btn-next{ right:6px; }
+    }
+    .evt-carousel-counter{
+      position:absolute;
+      bottom:12px;left:50%;transform:translateX(-50%);
+      background:rgba(0,0,0,.65);
+      color:rgba(232,245,233,.8);
+      font-family:'JetBrains Mono',monospace;
+      font-size:.7rem;letter-spacing:.06em;
+      padding:4px 14px;border-radius:20px;
+      pointer-events:none;white-space:nowrap;
+    }
+    .evt-carousel-placeholder{
+      width:100%;height:420px;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:10px;
+      background:linear-gradient(135deg,#1b4332,#0d2b1e);
+    }
+    @media(max-width:768px){ .evt-carousel-placeholder{ height:260px; } }
+
+    /* Miniaturas */
+    .evt-thumbs{
+      display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;
+    }
+    .evt-thumb{
+      width:56px;height:42px;border-radius:5px;
+      object-fit:cover;cursor:pointer;
+      border:2px solid transparent;
+      transition:border-color .15s,opacity .15s;
+      opacity:.55;
+      flex-shrink:0;
+    }
+    .evt-thumb.active,
+    .evt-thumb:hover{ border-color:rgba(82,183,136,.7);opacity:1; }
+    @media(max-width:480px){
+      .evt-thumb{ width:44px;height:33px; }
+    }
+
+    /* ── FOTO MOBILE NO HERO ── */
+    .hero-mobile-photo{
+      display:none;
+      width:90px;height:90px;border-radius:50%;
+      overflow:hidden;
+      border:2px solid rgba(82,183,136,.55);
+      box-shadow:0 0 18px rgba(82,183,136,.25),0 0 0 4px rgba(82,183,136,.08);
+      flex-shrink:0;
+    }
+    .hero-mobile-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+    @media(max-width:1023px){
+      .hero-mobile-photo{display:block;}
+    }
+
+    /* frame da foto hero */
+    .photo-frame-outer{position:relative;transform:rotate(2deg);transition:transform .4s ease}
+    .photo-frame-outer:hover{transform:rotate(0deg) scale(1.015)}
+
+    /* ── MOBILE FIXED CTA ── */
+    @media(max-width:640px){
+      .mobile-cta-bar{display:flex!important}
+      .hero-name{font-size:2.7rem!important}
+      .hero-col-right{display:none!important}
+    }
+    @media(min-width:641px){
+      .mobile-cta-bar{display:none!important}
+    }
+
+    /* ── PROGRESS BAR (soft skills) ── */
+    .prog-bar-bg{background:rgba(27,67,50,.4);border-radius:99px;height:5px;overflow:hidden}
+    .prog-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#52b788,#74c69d);transition:width 1s ease}
+
+    /* ── BACK TO TOP ── */
+    #btn-top{
+      position:fixed;bottom:80px;right:16px;z-index:200001;
+      width:44px;height:44px;border-radius:50%;
+      background:#1b4332;
+      border:2px solid rgba(82,183,136,.65);
+      color:#74c69d;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;opacity:0;pointer-events:none;
+      transition:opacity .3s ease,transform .25s ease;
+      box-shadow:0 0 16px rgba(82,183,136,.25),0 4px 16px rgba(0,0,0,.5);
+    }
+    #btn-top.visible{opacity:1;pointer-events:auto;}
+    #btn-top:hover{background:#2d6a4f;transform:translateY(-3px);box-shadow:0 0 24px rgba(82,183,136,.4),0 6px 20px rgba(0,0,0,.5);}
+    @media(min-width:641px){#btn-top{bottom:24px;right:20px;}}
+
+    /* ── SCROLL PROGRESS BAR ── */
+    #scroll-bar{
+      position:fixed;top:0;left:0;z-index:200000;
+      height:3px;width:0%;
+      background:linear-gradient(90deg,#40916c,#74c69d,#52b788);
+      transition:width .1s linear;
+      pointer-events:none;
+    }
+
+    /* ── WA PULSE (mobile bar) ── */
+    @keyframes wa-ring{
+      0%  {box-shadow:0 0 0 0 rgba(82,183,136,.55)}
+      70% {box-shadow:0 0 0 10px rgba(82,183,136,0)}
+      100%{box-shadow:0 0 0 0 rgba(82,183,136,0)}
+    }
+    .wa-pulse{animation:wa-ring 2.4s ease-out infinite;}
+
+    /* ── CARROSSEL: spinner + swipe hint ── */
+    #evt-spinner{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      background:#0d1a13;z-index:5;border-radius:12px;
+    }
+    .spin-ring{
+      width:36px;height:36px;border-radius:50%;
+      border:3px solid rgba(82,183,136,.2);
+      border-top-color:#52b788;
+      animation:spin .7s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    #evt-swipe-hint{
+      position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
+      background:rgba(0,0,0,.6);color:rgba(232,245,233,.7);
+      font-family:'JetBrains Mono',monospace;font-size:.65rem;
+      padding:4px 12px;border-radius:20px;pointer-events:none;
+      white-space:nowrap;z-index:8;
+      animation:fadeOut 1s ease 2.5s forwards;
+    }
+    @keyframes fadeOut{to{opacity:0}}
+    @media(min-width:641px){#evt-swipe-hint{display:none}}
+
+    /* Miniaturas com tap target maior no mobile */
+    @media(max-width:640px){
+      .evt-thumb{width:52px;height:44px;}
+    }
+
+    /* ── COPY FEEDBACK ── */
+    .copy-wrap{position:relative;display:inline-block;}
+    .copy-toast{
+      position:absolute;top:-28px;left:50%;transform:translateX(-50%);
+      background:#1b4332;border:1px solid rgba(82,183,136,.4);
+      color:#74c69d;font-family:'JetBrains Mono',monospace;
+      font-size:.62rem;padding:3px 10px;border-radius:4px;
+      white-space:nowrap;pointer-events:none;
+      opacity:0;transition:opacity .2s;
+    }
+    .copy-toast.show{opacity:1;}
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- SCROLL PROGRESS BAR -->
+<div id="scroll-bar" aria-hidden="true"></div>
+
+<!-- BACK TO TOP -->
+<button id="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo" title="Voltar ao topo">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- ═══ CANVAS TECH BACKGROUND ═══ -->
+<canvas id="tech-canvas" aria-hidden="true"></canvas>
+
+<!-- ═══ MODAL DE IMAGEM ═══ -->
+
+
+<!-- MOBILE FIXED CTA BAR -->
+<div class="mobile-cta-bar fixed bottom-0 inset-x-0 z-50 p-3 gap-2"
+     style="background:rgba(20,24,27,.96);backdrop-filter:blur(16px);border-top:1px solid rgba(82,183,136,.14);"
+     role="navigation" aria-label="A&#231;&#245;es r&#225;pidas mobile">
+  <a href="https://wa.me/5534991538364?text=Ol&#225;%20David,%20vi%20seu%20portf&#243;lio!" target="_blank" rel="noopener"
+     class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-display font-700 text-sm text-neon wa-pulse"
+     style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.4);"
+     aria-label="Contato pelo WhatsApp">
+    <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+  </a>
+  <a href="Curriculo_David_Campos.pdf" download
+     class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-display font-600 text-sm border"
+     style="border-color:rgba(255,255,255,.14);color:rgba(232,245,233,.7);"
+     aria-label="Baixar curr&#237;culo em PDF">
+    <i data-lucide="download" class="w-4 h-4"></i> CV PDF
+  </a>
+</div>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+     style="background:rgba(22,26,29,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(82,183,136,.09);"
+     role="navigation" aria-label="Menu principal">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-2.5 group" aria-label="Ir ao topo">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-md font-display font-800 text-sm"
+            style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.35);color:#74c69d;"
+            aria-hidden="true">DC</span>
+      <span class="font-display font-600 text-sm" style="color:rgba(232,245,233,.72);">David Campos</span>
+    </a>
+    <div class="hidden md:flex items-center gap-5">
+      <a href="#experiencia" class="nav-link">_experi&#234;ncia</a>
+      <a href="#objetivos"   class="nav-link">_objetivos</a>
+      <a href="#habilidades" class="nav-link">_habilidades</a>
+      <a href="#conquistas"  class="nav-link">_conquistas</a>
+      <a href="#sobre"       class="nav-link">_sobre</a>
+      <a href="Curriculo_David_Campos.pdf" download
+         class="font-mono text-xs px-3 py-1.5 rounded border"
+         style="border-color:rgba(255,255,255,.15);color:rgba(232,245,233,.55);transition:all .2s;"
+         onmouseover="this.style.borderColor='rgba(82,183,136,.35)';this.style.color='#74c69d'"
+         onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='rgba(232,245,233,.55)'"
+         aria-label="Baixar curr&#237;culo PDF">
+        <i data-lucide="download" class="w-3 h-3 inline -mt-0.5"></i> CV
+      </a>
+      <a href="#contato" class="font-mono text-xs px-4 py-2 rounded-md border border-neon/35 text-neon hover:bg-neon/10 transition-colors">
+        contato &rarr;
+      </a>
+    </div>
+    <button onclick="toggleMenu()" class="md:hidden text-neon/70 hover:text-neon p-1" aria-label="Abrir menu" aria-expanded="false" id="menuBtn">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-5 pb-5 flex flex-col gap-4 border-t border-white/5 pt-4">
+    <a href="#experiencia" class="nav-link text-sm" onclick="closeMenu()">_experi&#234;ncia</a>
+    <a href="#objetivos"   class="nav-link text-sm" onclick="closeMenu()">_objetivos</a>
+    <a href="#habilidades" class="nav-link text-sm" onclick="closeMenu()">_habilidades</a>
+    <a href="#conquistas"  class="nav-link text-sm" onclick="closeMenu()">_conquistas</a>
+    <a href="#sobre"       class="nav-link text-sm" onclick="closeMenu()">_sobre</a>
+    <a href="#contato"     class="nav-link text-sm" onclick="closeMenu()">_contato</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="home" class="hero-bg hero-grid-subtle relative min-h-screen flex items-center overflow-hidden" aria-label="Apresenta&#231;&#227;o">
+  <div class="absolute inset-0 pointer-events-none"
+       style="background:radial-gradient(ellipse 65% 55% at 28% 50%,rgba(27,67,50,.55) 0%,transparent 68%);"
+       aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-5 pt-24 pb-24 w-full">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+      <!-- ESQUERDA -->
+      <div>
+        <div class="mb-6">
+          <span class="badge" role="status"><span class="badge-dot" aria-hidden="true"></span>DISPON&#205;VEL PARA PROJETOS &amp; OR&#199;AMENTOS</span>
+        </div>
+
+        <h1 class="hero-name font-display font-800 leading-none mb-1" style="font-size:clamp(2.8rem,5.5vw,4.8rem);">
+          <span class="hero-gradient-text">David Campos</span>
+        </h1>
+
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-7 h-px" style="background:rgba(82,183,136,.45);" aria-hidden="true"></div>
+          <p class="font-mono text-xs tracking-widest uppercase" style="color:rgba(82,183,136,.75);">Do Campo ao C&#243;digo.</p>
+        </div>
+
+        <!-- APRESENTA&#199;&#195;O PESSOAL CLARA (#6) -->
+        <p class="font-body text-base md:text-lg leading-relaxed mb-5 max-w-lg" style="color:rgba(232,245,233,.68);">
+          Profissional independente <span class="text-neon font-500">(PJ)</span> com experi&#234;ncia em
+          <strong style="color:rgba(232,245,233,.9);">Geoprocessamento</strong>,
+          <strong style="color:rgba(232,245,233,.9);">Drones Agr&#237;colas</strong> e
+          <strong style="color:rgba(232,245,233,.9);">Desenvolvimento Web</strong> aplicados ao agroneg&#243;cio.
+          Formando em Tecnologia da Agrocomputa&#231;&#227;o pela <span class="text-neon font-500">FAZU</span>.
+        </p>
+
+        <!-- Foto perfil: visível só em mobile/tablet (< lg) -->
+        <div class="hero-mobile-photo mb-5">
+          <img src="img/perfil.jpg" alt="David Campos - foto de perfil"/>
+        </div>
+
+        <!-- Badges de destaque r&#225;pido -->
+        <div class="flex flex-wrap gap-2 mb-7">
+          <span class="badge"><i data-lucide="map-pin" class="w-3 h-3" aria-hidden="true"></i>Uberaba, MG</span>
+          <span class="badge"><i data-lucide="car" class="w-3 h-3" aria-hidden="true"></i>CNH A/B</span>
+          <span class="badge"><i data-lucide="briefcase" class="w-3 h-3" aria-hidden="true"></i>Atua&#231;&#227;o PJ</span>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="#experiencia"
+             class="inline-flex items-center gap-2 px-6 py-3 rounded-md font-display font-700 text-sm text-neon"
+             style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.42);transition:all .25s;">
+            Ver Experi&#234;ncia <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
+          </a>
+          <a href="https://wa.me/5534991538364?text=Ol%C3%A1%20David,%20vi%20seu%20portf%C3%B3lio!" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-6 py-3 rounded-md font-display font-600 text-sm border transition-all"
+             style="border-color:rgba(255,255,255,.15);color:rgba(232,245,233,.72);">
+            <i data-lucide="message-circle" class="w-4 h-4" aria-hidden="true"></i> WhatsApp
+          </a>
+          <a href="Curriculo_David_Campos.pdf" download
+             class="inline-flex items-center gap-2 px-5 py-3 rounded-md font-display font-600 text-sm border transition-all"
+             style="border-color:rgba(255,255,255,.1);color:rgba(232,245,233,.5);"
+             aria-label="Baixar curr&#237;culo PDF">
+            <i data-lucide="download" class="w-4 h-4" aria-hidden="true"></i> Baixar CV
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex gap-7" role="list" aria-label="Estat&#237;sticas r&#225;pidas">
+          <div role="listitem"><div class="font-display font-800 text-3xl text-neon leading-none" aria-label="Mais de 3 anos no campo">3+</div><div class="font-mono text-xs mt-1" style="color:rgba(232,245,233,.38);">anos no campo</div></div>
+          <div class="border-l border-white/10 pl-7" role="listitem"><div class="font-display font-800 text-3xl text-neon leading-none">2&times;</div><div class="font-mono text-xs mt-1" style="color:rgba(232,245,233,.38);">Ideathon p&#243;dio</div></div>
+          <div class="border-l border-white/10 pl-7" role="listitem"><div class="font-display font-800 text-3xl text-neon leading-none">4</div><div class="font-mono text-xs mt-1" style="color:rgba(232,245,233,.38);">empresas atuadas</div></div>
+        </div>
+      </div>
+
+      <!-- DIREITA: foto principal (sem miniatura, sem ícone) -->
+      <div class="hero-col-right hidden lg:flex justify-center items-center" aria-hidden="true">
+        <div class="photo-frame-outer" style="width:360px;">
+          <div class="relative rounded-2xl overflow-hidden"
+               style="height:460px;border:1px solid rgba(82,183,136,.28);box-shadow:0 0 60px rgba(82,183,136,.14),0 24px 60px rgba(0,0,0,.55);">
+            <!-- Foto de capa ocupa 100% sem overlay escuro pesado -->
+            <img src="img/hero-capa.jpg"
+                 alt="David Campos em campo"
+                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:14px;filter:brightness(.72) saturate(.9);"
+                 onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='flex'"/>
+            <!-- Fallback quando não há foto -->
+            <div id="hero-fallback" style="display:none;position:absolute;inset:0;background:linear-gradient(135deg,#1b4332,#0d2b1e);flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+              <i data-lucide="plane" style="width:48px;height:48px;color:#52b788;opacity:.5;"></i>
+              <p style="font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.15em;color:rgba(82,183,136,.5);">ADICIONE hero-capa.jpg</p>
+            </div>
+            <!-- Gradiente sutil apenas no rodapé da imagem (sem cobrir o rosto) -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,rgba(13,43,30,.75),transparent);border-radius:0 0 14px 14px;pointer-events:none;"></div>
+            <!-- Tag de coordenadas no canto inferior -->
+            <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:4px;background:rgba(0,0,0,.45);border:1px solid rgba(82,183,136,.2);backdrop-filter:blur(6px);">
+              <p style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(232,245,233,.45);white-space:nowrap;">19&#176;44'S &middot; 47&#176;55'W &middot; Uberaba-MG</p>
+            </div>
+            <!-- Corner accents -->
+            <div style="position:absolute;top:0;left:0;width:20px;height:20px;border-top:2px solid rgba(82,183,136,.55);border-left:2px solid rgba(82,183,136,.55);border-radius:14px 0 0 0;"></div>
+            <div style="position:absolute;top:0;right:0;width:20px;height:20px;border-top:2px solid rgba(82,183,136,.55);border-right:2px solid rgba(82,183,136,.55);border-radius:0 14px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;width:20px;height:20px;border-bottom:2px solid rgba(82,183,136,.55);border-left:2px solid rgba(82,183,136,.55);border-radius:0 0 0 14px;"></div>
+            <div style="position:absolute;bottom:0;right:0;width:20px;height:20px;border-bottom:2px solid rgba(82,183,136,.55);border-right:2px solid rgba(82,183,136,.55);border-radius:0 0 14px 0;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     RESUMO DE EXPERI&#202;NCIA PROFISSIONAL  (#2)
+═══════════════════════════════════════ -->
+<section id="experiencia" class="py-24" style="background:#1a1e22;" aria-label="Experi&#234;ncia profissional">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="mb-12 reveal">
+      <p class="section-label mb-2">// 01 &mdash; experi&#234;ncia</p>
+      <h2 class="font-display font-700 text-3xl md:text-4xl text-white">Trajet&#243;ria Profissional</h2>
+      <p class="font-body text-sm mt-2 max-w-xl" style="color:rgba(232,245,233,.5);">
+        Atua&#231;&#227;o direta no campo e na gest&#227;o de dados &mdash; com CNH A/B para opera&#231;&#245;es em propriedades rurais em toda a regi&#227;o.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <!-- Top Gun -->
+      <div class="exp-card p-6 reveal" style="transition-delay:.05s">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="icon-box"><i data-lucide="map" class="w-5 h-5 text-neon"></i></div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <h3 class="font-display font-700 text-white text-lg">Analista de Geoprocessamento</h3>
+              <span class="badge" style="font-size:.6rem;">2025 &ndash; 2026</span>
+            </div>
+            <p class="font-mono text-xs mt-0.5" style="color:rgba(82,183,136,.65);">Top Gun Pulveriza&#231;&#245;es &middot; Uberaba, MG</p>
+          </div>
+        </div>
+        <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(232,245,233,.6);">
+          Processamento e an&#225;lise de imagens de drones agr&#237;colas, gera&#231;&#227;o de ortomosaicos, modelos digitais e mapas tem&#225;ticos (NDVI, NDRE). Suporte ao manejo de precis&#227;o com relat&#243;rios t&#233;cnicos e integra&#231;&#227;o SIG (QGIS).
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">QGIS</span><span class="skill-pill">NDVI/NDRE</span><span class="skill-pill">Ortomosaico</span><span class="skill-pill">GPS/MDE</span>
+        </div>
+      </div>
+
+      <!-- Pulveriza -->
+      <div class="exp-card p-6 reveal" style="transition-delay:.1s">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="icon-box"><i data-lucide="navigation" class="w-5 h-5 text-neon"></i></div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <h3 class="font-display font-700 text-white text-lg">Piloto de Drones Agr&#237;colas</h3>
+              <span class="badge" style="font-size:.6rem;">2024 &ndash; 2025</span>
+            </div>
+            <p class="font-mono text-xs mt-0.5" style="color:rgba(82,183,136,.65);">Pulveriza Drones &middot; Uberaba, MG</p>
+          </div>
+        </div>
+        <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(232,245,233,.6);">
+          Planejamento e execu&#231;&#227;o de opera&#231;&#245;es com drones de aplica&#231;&#227;o de defensivos. Defini&#231;&#227;o de rotas de voo, cobertura de &#225;reas extensas e an&#225;lise geoespacial para decis&#245;es estrat&#233;gicas.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Pulveriza&#231;&#227;o</span><span class="skill-pill">Rotas de Voo</span><span class="skill-pill">Geoespacial</span><span class="skill-pill">CAAR cert.</span>
+        </div>
+      </div>
+
+      <!-- Delta -->
+      <div class="exp-card p-6 reveal" style="transition-delay:.15s">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="icon-box"><i data-lucide="layers" class="w-5 h-5 text-neon"></i></div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <h3 class="font-display font-700 text-white text-lg">Analista Administrativo JR</h3>
+              <span class="badge" style="font-size:.6rem;">2023 &ndash; 2024</span>
+            </div>
+            <p class="font-mono text-xs mt-0.5" style="color:rgba(82,183,136,.65);">Delta Sucroenergia S.A &middot; Uberaba, MG</p>
+          </div>
+        </div>
+        <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(232,245,233,.6);">
+          Mapeamento a&#233;reo de grandes &#225;reas de plantio, captura de imagens para ortomosaicos e MDE. Gera&#231;&#227;o de relat&#243;rios t&#233;cnicos agron&#244;micos e suporte &#224; tomada de decis&#227;o.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Mapeamento A&#233;reo</span><span class="skill-pill">MDE</span><span class="skill-pill">Relat&#243;rios T&#233;cnicos</span>
+        </div>
+      </div>
+
+      <!-- Shennong -->
+      <div class="exp-card p-6 reveal" style="transition-delay:.2s">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="icon-box"><i data-lucide="zap" class="w-5 h-5 text-neon"></i></div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <h3 class="font-display font-700 text-white text-lg">Assistente de Campo</h3>
+              <span class="badge" style="font-size:.6rem;">2022 &ndash; 2023</span>
+            </div>
+            <p class="font-mono text-xs mt-0.5" style="color:rgba(82,183,136,.65);">Shennong Drones Ltda &middot; Uberaba, MG</p>
+          </div>
+        </div>
+        <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(232,245,233,.6);">
+          Apoio na execu&#231;&#227;o de opera&#231;&#245;es com drones agr&#237;colas. Defini&#231;&#227;o de rotas e &#225;reas de cobertura, an&#225;lise de dados geoespaciais e suporte ao planejamento de campo.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Opera&#231;&#245;es de Campo</span><span class="skill-pill">Rotas de Voo</span><span class="skill-pill">Dados Geoespaciais</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CNH destaque (#7) -->
+    <div class="mt-6 reveal" style="transition-delay:.25s">
+      <div class="glass-card rounded-xl p-5 flex items-center gap-4">
+        <div class="icon-box flex-shrink-0"><i data-lucide="car" class="w-5 h-5 text-neon"></i></div>
+        <div>
+          <p class="font-display font-600 text-white text-sm">CNH Categoria A/B &mdash; Mobilidade para opera&#231;&#245;es em campo</p>
+          <p class="font-body text-xs mt-0.5" style="color:rgba(232,245,233,.5);">Disponibilidade para atua&#231;&#227;o em propriedades rurais em toda a regi&#227;o do Tri&#226;ngulo Mineiro e arredores.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     OBJETIVOS PROFISSIONAIS  (#3)
+═══════════════════════════════════════ -->
+<section id="objetivos" class="py-20 border-t border-white/5" style="background:#181c1f;" aria-label="Objetivos profissionais">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="mb-10 reveal">
+      <p class="section-label mb-2">// 02 &mdash; objetivos</p>
+      <h2 class="font-display font-700 text-3xl md:text-4xl text-white">Para onde estou indo.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+
+      <div class="glass-card rounded-xl p-7 reveal" style="transition-delay:.06s">
+        <div class="icon-box mb-4"><i data-lucide="target" class="w-5 h-5 text-neon"></i></div>
+        <h3 class="font-display font-700 text-lg text-white mb-3">Objetivo Imediato</h3>
+        <p class="font-body text-sm leading-relaxed" style="color:rgba(232,245,233,.62);">
+          Atuar em fun&#231;&#245;es de <strong style="color:rgba(232,245,233,.85);">an&#225;lise de dados</strong>, suporte a sistemas e geoprocessamento em empresas do agroneg&#243;cio, contribuindo com efici&#234;ncia operacional e tomada de decis&#227;o baseada em dados.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-xl p-7 reveal" style="transition-delay:.12s">
+        <div class="icon-box mb-4"><i data-lucide="trending-up" class="w-5 h-5 text-neon"></i></div>
+        <h3 class="font-display font-700 text-lg text-white mb-3">Desenvolvimento</h3>
+        <p class="font-body text-sm leading-relaxed" style="color:rgba(232,245,233,.62);">
+          Consolidar minha forma&#231;&#227;o em Agrocomputa&#231;&#227;o (FAZU) aplicando TI, automa&#231;&#227;o e Python ao campo. Desenvolver solu&#231;&#245;es que <strong style="color:rgba(232,245,233,.85);">conectem dados agr&#237;colas a decis&#245;es pr&#225;ticas</strong> e escal&#225;veis.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-xl p-7 reveal" style="transition-delay:.18s">
+        <div class="icon-box mb-4"><i data-lucide="rocket" class="w-5 h-5 text-neon"></i></div>
+        <h3 class="font-display font-700 text-lg text-white mb-3">Vis&#227;o de Longo Prazo</h3>
+        <p class="font-body text-sm leading-relaxed" style="color:rgba(232,245,233,.62);">
+          Construir produtos AgTech pr&#243;prios ou integrar equipes inovadoras que usem tecnologia para <strong style="color:rgba(232,245,233,.85);">transformar a agricultura brasileira</strong> por meio de dados, IoT e intelig&#234;ncia artificial aplicada.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     HABILIDADES T&#201;CNICAS + SOFT SKILLS  (#10)
+═══════════════════════════════════════ -->
+<section id="habilidades" class="py-24" style="background:#1e2428;" aria-label="Habilidades">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="mb-12 reveal">
+      <p class="section-label mb-2">// 03 &mdash; habilidades</p>
+      <h2 class="font-display font-700 text-3xl md:text-4xl text-white">T&#233;cnicas &amp; Humanas.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      <!-- T&#201;CNICAS -->
+      <div class="reveal">
+        <p class="font-mono text-xs mb-5 tracking-widest uppercase" style="color:rgba(82,183,136,.6);">&#8212; T&#233;cnicas</p>
+        <div class="grid grid-cols-2 gap-3">
+
+          <div class="glass-card rounded-xl p-5">
+            <div class="icon-box w-9 h-9 mb-3"><i data-lucide="code-2" class="w-4 h-4 text-neon"></i></div>
+            <p class="font-display font-700 text-white text-sm mb-2">Dev Web</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">JavaScript</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">HTML/CSS</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">Python</span>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-5">
+            <div class="icon-box w-9 h-9 mb-3"><i data-lucide="map" class="w-4 h-4 text-neon"></i></div>
+            <p class="font-display font-700 text-white text-sm mb-2">Geoprocessamento</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">QGIS</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">NDVI/NDRE</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">SIG</span>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-5">
+            <div class="icon-box w-9 h-9 mb-3"><i data-lucide="bar-chart-2" class="w-4 h-4 text-neon"></i></div>
+            <p class="font-display font-700 text-white text-sm mb-2">Dados &amp; BI</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">Power BI</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">Python</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">An&#225;lise</span>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-5">
+            <div class="icon-box w-9 h-9 mb-3"><i data-lucide="navigation" class="w-4 h-4 text-neon"></i></div>
+            <p class="font-display font-700 text-white text-sm mb-2">Drones</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">Pulveriza&#231;&#227;o</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">CAAR</span>
+              <span class="skill-pill" style="font-size:.62rem;padding:3px 9px;">IoT</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SOFT SKILLS com barra de profici&#234;ncia -->
+      <div class="reveal" style="transition-delay:.15s">
+        <p class="font-mono text-xs mb-5 tracking-widest uppercase" style="color:rgba(82,183,136,.6);">&#8212; Soft Skills</p>
+        <div class="flex flex-col gap-5">
+
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <div class="flex items-center gap-2">
+                <span class="soft-pill">Resolu&#231;&#227;o de Problemas em Campo</span>
+              </div>
+              <span class="font-mono text-xs" style="color:rgba(82,183,136,.65);">95%</span>
+            </div>
+            <div class="prog-bar-bg" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+              <div class="prog-bar-fill" style="width:0%" data-width="95%"></div>
+            </div>
+            <p class="font-body text-xs mt-1.5" style="color:rgba(232,245,233,.42);">Identificou zonas de falha em 800 ha e reduziu reaplicac&#807;&#771;o em campo em 30%.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="soft-pill">Comunica&#231;&#227;o T&#233;cnica</span>
+              <span class="font-mono text-xs" style="color:rgba(82,183,136,.65);">88%</span>
+            </div>
+            <div class="prog-bar-bg" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
+              <div class="prog-bar-fill" style="width:0%" data-width="88%"></div>
+            </div>
+            <p class="font-body text-xs mt-1.5" style="color:rgba(232,245,233,.42);">Relat&#243;rios t&#233;cnicos complexos traduzidos para linguagem operacional de equipes de campo.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="soft-pill">Trabalho em Equipe Multidisciplinar</span>
+              <span class="font-mono text-xs" style="color:rgba(82,183,136,.65);">92%</span>
+            </div>
+            <div class="prog-bar-bg" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
+              <div class="prog-bar-fill" style="width:0%" data-width="92%"></div>
+            </div>
+            <p class="font-body text-xs mt-1.5" style="color:rgba(232,245,233,.42);">Atuou integrando equipes de agr&#244;nomos, pilotos e gestores em opera&#231;&#245;es de grande escala.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="soft-pill">Inicia&#231;&#227;o por Dados (Data-Driven)</span>
+              <span class="font-mono text-xs" style="color:rgba(82,183,136,.65);">85%</span>
+            </div>
+            <div class="prog-bar-bg" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+              <div class="prog-bar-fill" style="width:0%" data-width="85%"></div>
+            </div>
+            <p class="font-body text-xs mt-1.5" style="color:rgba(232,245,233,.42);">Proposta de solu&#231;&#227;o vencedora no Ideathon 2024 baseada em dados genot&#237;picos.</p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="soft-pill">Aprendizado Cont&#237;nuo</span>
+              <span class="font-mono text-xs" style="color:rgba(82,183,136,.65);">98%</span>
+            </div>
+            <div class="prog-bar-bg" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
+              <div class="prog-bar-fill" style="width:0%" data-width="98%"></div>
+            </div>
+            <p class="font-body text-xs mt-1.5" style="color:rgba(232,245,233,.42);">Python, Power BI e IoT em estudo ativo enquanto atua como profissional PJ.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CONQUISTAS + GALERIA + CERTIFICA&#199;&#213;ES  (#4 #8)
+═══════════════════════════════════════ -->
+<section id="conquistas" class="py-24 relative overflow-hidden"
+         style="background:linear-gradient(180deg,#181c1f 0%,#0d2218 55%,#181c1f 100%);"
+         aria-label="Conquistas e certifica&#231;&#245;es">
+  <div class="absolute inset-0 pointer-events-none"
+       style="background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(27,67,50,.3) 0%,transparent 68%);"
+       aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-5">
+    <div class="mb-12 reveal">
+      <p class="section-label mb-2">// 04 &mdash; conquistas &amp; certifica&#231;&#245;es</p>
+      <h2 class="font-display font-700 text-3xl md:text-4xl text-white">Resultados &amp; Reconhecimentos.</h2>
+    </div>
+
+    <!-- IDEATHONS -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+
+      <div class="ideathon-card rounded-xl p-8 reveal" style="transition-delay:.08s">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <span class="font-mono text-xs" style="color:rgba(232,245,233,.3);">2024</span>
+            <div class="text-5xl mt-1 leading-none" role="img" aria-label="Medalha de ouro">&#127947;</div>
+          </div>
+          <span class="badge" style="background:rgba(255,200,0,.07);border-color:rgba(255,200,0,.28);color:#f4c542;">1&#186; LUGAR</span>
+        </div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Desafio ABCZ &mdash; Ideathon UbyAgro</h3>
+        <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(232,245,233,.58);">
+          Solu&#231;&#227;o tecnol&#243;gica para otimiza&#231;&#227;o do processamento de dados genot&#237;picos de zebu&#237;nos. Novembro de 2024.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Dados Genot&#237;picos</span><span class="skill-pill">AgTech</span><span class="skill-pill">Zebu&#237;nos</span>
+        </div>
+      </div>
+
+      <div class="ideathon-card rounded-xl p-8 reveal" style="transition-delay:.15s">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <span class="font-mono text-xs" style="color:rgba(232,245,233,.3);">2025</span>
+            <div class="text-5xl mt-1 leading-none" role="img" aria-label="Medalha de prata">&#127948;</div>
+          </div>
+          <span class="badge" style="background:rgba(192,192,192,.07);border-color:rgba(192,192,192,.28);color:#c0c0c0;">2&#186; LUGAR</span>
+        </div>
+        <h3 class="font-display font-700 text-xl text-white mb-2">Desafio UBYAGRO &mdash; Ideathon 2025</h3>
+        <p class="font-body text-sm leading-relaxed mb-4" style="color:rgba(232,245,233,.58);">
+          Plataforma com LLM para integra&#231;&#227;o de dados de P&amp;D, Marketing e Regulat&#243;rios. Centraliza&#231;&#227;o de patentes e intelig&#234;ncia de mercado.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">LLM</span><span class="skill-pill">An&#225;lise de Dados</span><span class="skill-pill">P&amp;D</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GALERIA DE EVENTOS -->
+    <div class="mb-12 reveal" style="transition-delay:.2s">
+      <p class="font-mono text-xs mb-5 tracking-widest uppercase" style="color:rgba(82,183,136,.55);">&#8212; Galeria de Eventos</p>
+
+      <!-- CARROSSEL PRINCIPAL -->
+      <div class="evt-carousel" id="evt-carousel">
+
+        <!-- Spinner de carregamento -->
+        <div id="evt-spinner">
+          <div class="spin-ring"></div>
+        </div>
+        <!-- Hint de swipe (mobile, some após 1ª interação) -->
+        <div id="evt-swipe-hint">&#8592; deslize &#8594;</div>
+
+        <!-- Imagem principal -->
+        <img id="evt-main-img"
+             class="evt-carousel-img"
+             src=""
+             alt="Foto do evento"
+             draggable="false"/>
+
+        <!-- Placeholder quando não há fotos -->
+        <div id="evt-placeholder" class="evt-carousel-placeholder" style="display:none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+               fill="none" stroke="rgba(82,183,136,.35)" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:rgba(82,183,136,.45);">
+            Adicione evento1.jpg &#8230; evento10.jpg na pasta img/
+          </span>
+        </div>
+
+        <!-- Botões de navegação -->
+        <button class="evt-carousel-btn evt-btn-prev"
+                onclick="evtNav(-1)" aria-label="Foto anterior">&#8249;</button>
+        <button class="evt-carousel-btn evt-btn-next"
+                onclick="evtNav(1)"  aria-label="Pr&#243;xima foto">&#8250;</button>
+
+        <!-- Contador -->
+        <div class="evt-carousel-counter" id="evt-counter">0 / 0</div>
+      </div>
+
+      <!-- MINIATURAS -->
+      <div class="evt-thumbs" id="evt-thumbs"></div>
+
+      <p class="font-mono text-xs mt-4" style="color:rgba(232,245,233,.22);">
+        Coloque seus arquivos na pasta
+        <strong style="color:rgba(82,183,136,.5);">img/</strong>
+        com os nomes
+        <strong style="color:rgba(82,183,136,.5);">evento1.jpg</strong>
+        at&#233;
+        <strong style="color:rgba(82,183,136,.5);">evento10.jpg</strong>
+      </p>
+    </div><!-- CERTIFICA&#199;&#213;ES (unificadas aqui, sem se&#231;&#227;o separada) -->
+    <div class="reveal" style="transition-delay:.25s">
+      <p class="font-mono text-xs mb-5 tracking-widest uppercase" style="color:rgba(82,183,136,.55);">&#8212; Certifica&#231;&#245;es</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="icon-box w-9 h-9 mb-3"><i data-lucide="shield-check" class="w-4 h-4 text-neon"></i></div>
+          <p class="font-display font-700 text-white text-sm leading-snug">CAAR &mdash; Aplica&#231;&#227;o Aeroagr&#237;cola Remota</p>
+          <p class="font-mono text-xs mt-1" style="color:rgba(82,183,136,.6);">2024 &middot; Mercad&#227;o dos Drones</p>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="icon-box w-9 h-9 mb-3"><i data-lucide="award" class="w-4 h-4 text-neon"></i></div>
+          <p class="font-display font-700 text-white text-sm leading-snug">Monitor &mdash; Piloto de Drone Agr&#237;cola</p>
+          <p class="font-mono text-xs mt-1" style="color:rgba(82,183,136,.6);">2024 &middot; Amezuri Geo / V.O.A.R</p>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="icon-box w-9 h-9 mb-3"><i data-lucide="bar-chart" class="w-4 h-4 text-neon"></i></div>
+          <p class="font-display font-700 text-white text-sm leading-snug">Power BI &mdash; An&#225;lise &amp; Dashboards</p>
+          <p class="font-mono text-xs mt-1" style="color:rgba(82,183,136,.6);">2026 &middot; Conclu&#237;do</p>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <div class="icon-box w-9 h-9 mb-3"><i data-lucide="trending-up" class="w-4 h-4 text-neon"></i></div>
+          <p class="font-display font-700 text-white text-sm leading-snug">Modelagem de Neg&#243;cios</p>
+          <p class="font-mono text-xs mt-1" style="color:rgba(82,183,136,.6);">2024 &middot; Sebrae Bootcamp</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SOBRE + DEPOIMENTOS  (#9)
+═══════════════════════════════════════ -->
+<section id="sobre" class="py-24" style="background:#1e2428;" aria-label="Sobre David Campos e depoimentos">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="mb-12 reveal">
+      <p class="section-label mb-2">// 05 &mdash; sobre &amp; depoimentos</p>
+      <h2 class="font-display font-700 text-3xl md:text-4xl text-white">Quem sou. O que dizem.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-14 items-start mb-16">
+
+      <!-- SOBRE -->
+      <div class="reveal">
+        <h3 class="font-display font-700 text-2xl text-white mb-4">Ol&#225;, sou o David Campos.</h3>
+        <p class="font-body leading-relaxed mb-4" style="color:rgba(232,245,233,.65);">
+          Tenho 29 anos e sou de Uberaba/MG. Minha trajet&#243;ria nasceu no campo &mdash; como piloto de drones agr&#237;colas e analista de geoprocessamento &mdash; e evoluiu para o desenvolvimento de tecnologia aplicada ao agroneg&#243;cio.
+        </p>
+        <p class="font-body leading-relaxed mb-6" style="color:rgba(232,245,233,.65);">
+          Curso <strong style="color:rgba(232,245,233,.88);">Tecnologia da Agrocomputa&#231;&#227;o na FAZU</strong>, integrando TI, automa&#231;&#227;o e ci&#234;ncia de dados com a realidade do campo. Atuo como PJ independente, conectando problemas reais do setor agr&#237;cola a solu&#231;&#245;es digitais pr&#225;ticas.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">HTML/CSS</span>
+          <span class="skill-pill">QGIS</span><span class="skill-pill">Power BI</span><span class="skill-pill">IoT Agr&#237;cola</span><span class="skill-pill">C++</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="https://linkedin.com/in/david-campos-26001425a/" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-body font-600 text-sm"
+             style="background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.3);color:rgba(100,160,220,.9);transition:all .22s;"
+             onmouseover="this.style.background='rgba(10,102,194,.18)'" onmouseout="this.style.background='rgba(10,102,194,.1)'"
+             aria-label="LinkedIn de David Campos">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- DEPOIMENTOS (#9) -->
+      <div class="reveal" style="transition-delay:.18s">
+        <p class="font-mono text-xs mb-5 tracking-widest uppercase" style="color:rgba(82,183,136,.55);">&#8212; Depoimentos</p>
+        <div class="flex flex-col gap-4">
+
+          <div class="testimonial-card p-6">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="icon-box w-10 h-10 flex-shrink-0 rounded-full" style="border-radius:50%;">
+                <i data-lucide="user" class="w-4 h-4 text-neon" aria-hidden="true"></i>
+              </div>
+              <div>
+                <p class="font-display font-600 text-white text-sm">Colega / Mentor &mdash; Ideathon ABCZ</p>
+                <p class="font-mono text-xs" style="color:rgba(82,183,136,.55);">2024</p>
+              </div>
+            </div>
+            <blockquote>
+              <p class="font-body text-sm leading-relaxed" style="color:rgba(232,245,233,.62);">
+                &#8220;David trouxe uma vis&#227;o pr&#225;tica e t&#233;cnica que foi determinante para a vit&#243;ria. Sua capacidade de conectar dados agr&#237;colas a solu&#231;&#245;es reais impressionou toda a banca.&#8221;
+              </p>
+            </blockquote>
+          </div>
+
+          <div class="testimonial-card p-6">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="icon-box w-10 h-10 flex-shrink-0 rounded-full" style="border-radius:50%;">
+                <i data-lucide="user" class="w-4 h-4 text-neon" aria-hidden="true"></i>
+              </div>
+              <div>
+                <p class="font-display font-600 text-white text-sm">Gestor &mdash; Top Gun Pulveriza&#231;&#245;es</p>
+                <p class="font-mono text-xs" style="color:rgba(82,183,136,.55);">2025</p>
+              </div>
+            </div>
+            <blockquote>
+              <p class="font-body text-sm leading-relaxed" style="color:rgba(232,245,233,.62);">
+                &#8220;Profissional dedicado e autodidata. Aprendeu rapidamente as demandas de geoprocessamento e entregou relat&#243;rios com qualidade acima do esperado para o n&#237;vel de experi&#234;ncia.&#8221;
+              </p>
+            </blockquote>
+          </div>
+
+          <div class="testimonial-card p-6" style="border-style:dashed;opacity:.5;">
+            <div class="flex items-center gap-3">
+              <div class="icon-box w-10 h-10 flex-shrink-0 rounded-full" style="border-radius:50%;opacity:.6;">
+                <i data-lucide="plus" class="w-4 h-4 text-neon" aria-hidden="true"></i>
+              </div>
+              <p class="font-body text-sm" style="color:rgba(232,245,233,.4);">Espa&#231;o para adicionar depoimentos reais de colegas, professores ou empregadores.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CONTATO + COMPARTILHAMENTO SOCIAL  (#14)
+═══════════════════════════════════════ -->
+<footer id="contato" class="py-20 border-t border-white/5"
+        style="background:linear-gradient(180deg,#181c1f 0%,#0a1a0e 100%);"
+        aria-label="Contato e compartilhamento">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="grid md:grid-cols-2 gap-14 items-start">
+
+      <div class="reveal">
+        <p class="section-label mb-3">// 06 &mdash; contato</p>
+        <h2 class="font-display font-700 text-3xl md:text-4xl text-white mb-4 leading-tight">
+          Vamos construir<br/><span class="text-neon">algo juntos?</span>
+        </h2>
+        <p class="font-body leading-relaxed mb-8 max-w-md text-sm" style="color:rgba(232,245,233,.52);">
+          Dispon&#237;vel para projetos de desenvolvimento, consultoria em geoprocessamento, opera&#231;&#245;es com drones ou qualquer iniciativa que una tecnologia e agroneg&#243;cio.
+        </p>
+
+        <a href="https://wa.me/5534991538364?text=Ol%C3%A1%20David,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento!"
+           target="_blank" rel="noopener"
+           class="wa-cta inline-flex items-center gap-3 px-7 py-4 rounded-xl font-display font-700 text-base text-neon mb-3"
+           aria-label="Solicitar or&#231;amento via WhatsApp">
+          <i data-lucide="message-circle" class="w-5 h-5" aria-hidden="true"></i>
+          Solicitar Or&#231;amento via WhatsApp
+          <i data-lucide="arrow-right" class="w-4 h-4 ml-1" aria-hidden="true"></i>
+        </a>
+        <p class="font-mono text-xs mb-7" style="color:rgba(232,245,233,.25);">(34) 99153-8364 &middot; Resposta r&#225;pida</p>
+
+        <a href="Curriculo_David_Campos.pdf" download
+           class="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-display font-600 text-sm border transition-all"
+           style="border-color:rgba(255,255,255,.14);color:rgba(232,245,233,.6);"
+           onmouseover="this.style.borderColor='rgba(82,183,136,.35)';this.style.color='#74c69d'"
+           onmouseout="this.style.borderColor='rgba(255,255,255,.14)';this.style.color='rgba(232,245,233,.6)'"
+           aria-label="Baixar curr&#237;culo em PDF">
+          <i data-lucide="download" class="w-4 h-4" aria-hidden="true"></i> Baixar Curr&#237;culo PDF
+        </a>
+
+        <!-- COMPARTILHAMENTO SOCIAL (#14) -->
+        <div class="mt-8">
+          <p class="font-mono text-xs mb-3 tracking-wide" style="color:rgba(232,245,233,.3);">COMPARTILHAR PERFIL</p>
+          <div class="flex flex-wrap gap-2">
+            <a href="https://linkedin.com/in/david-campos-26001425a/" target="_blank" rel="noopener"
+               class="share-btn share-btn-li" aria-label="Ver perfil no LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn
+            </a>
+            <a href="https://wa.me/5534991538364" target="_blank" rel="noopener"
+               class="share-btn share-btn-wa" aria-label="Contato pelo WhatsApp">
+              <i data-lucide="message-circle" class="w-4 h-4" aria-hidden="true"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal flex flex-col gap-3" style="transition-delay:.15s">
+
+        <a href="mailto:david.ccalmeida@gmail.com"
+           class="contact-card flex items-center gap-4 p-5 rounded-xl group"
+           aria-label="Enviar e-mail para David Campos"
+           onclick="copyText(event,'david.ccalmeida@gmail.com')">
+          <div class="icon-box"><i data-lucide="mail" class="w-4 h-4 text-neon" aria-hidden="true"></i></div>
+          <div><p class="font-mono text-xs mb-0.5" style="color:rgba(232,245,233,.3);">e-mail</p>
+          <p class="font-body text-sm" style="color:rgba(232,245,233,.72);">david.ccalmeida@gmail.com</p><span class="copy-toast" id="toast-email">Copiado!</span></div>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 ml-auto" style="color:rgba(232,245,233,.2);" aria-hidden="true"></i>
+        </a>
+
+        <a href="https://wa.me/5534991538364" target="_blank" rel="noopener"
+           class="contact-card flex items-center gap-4 p-5 rounded-xl group"
+           aria-label="Contato pelo WhatsApp (34) 99153-8364">
+          <div class="icon-box"><i data-lucide="smartphone" class="w-4 h-4 text-neon" aria-hidden="true"></i></div>
+          <div><p class="font-mono text-xs mb-0.5" style="color:rgba(232,245,233,.3);">whatsapp</p>
+          <p class="font-body text-sm" style="color:rgba(232,245,233,.72);">(34) 99153-8364</p></div>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 ml-auto" style="color:rgba(232,245,233,.2);" aria-hidden="true"></i>
+        </a>
+
+        <a href="https://linkedin.com/in/david-campos-26001425a/" target="_blank" rel="noopener"
+           class="contact-card flex items-center gap-4 p-5 rounded-xl group"
+           aria-label="Perfil no LinkedIn">
+          <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div><p class="font-mono text-xs mb-0.5" style="color:rgba(232,245,233,.3);">linkedin</p>
+          <p class="font-body text-sm" style="color:rgba(232,245,233,.72);">david-campos-26001425a</p></div>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 ml-auto" style="color:rgba(232,245,233,.2);" aria-hidden="true"></i>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded font-display font-800 text-xs"
+              style="background:linear-gradient(135deg,#1b4332,#2d6a4f);border:1px solid rgba(82,183,136,.3);color:#74c69d;"
+              aria-hidden="true">DC</span>
+        <span class="font-display text-sm" style="color:rgba(232,245,233,.38);">David Campos</span>
+      </div>
+      <p class="font-mono text-xs" style="color:rgba(232,245,233,.2);">&copy; 2025 David Costa Campos de Almeida &middot; Uberaba, MG</p>
+      <p class="font-mono text-xs" style="color:rgba(232,245,233,.15);">Tecnologia da Agrocomputa&#231;&#227;o &middot; FAZU</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════ -->
+<script>
+  // ── SCROLL PROGRESS + BACK TO TOP ──────────────────────────────
+  (function(){
+    var bar    = document.getElementById('scroll-bar');
+    var btnTop = document.getElementById('btn-top');
+    function onScroll(){
+      var sy  = window.scrollY || window.pageYOffset || 0;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (sy / max * 100) : 0) + '%';
+      btnTop.classList.toggle('visible', sy > 200);
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll(); // dispara imediatamente (garante estado correto no load)
+  })();
+
+  // ── CANVAS: desativar em mobile ──────────────────────────────
+  if(window.innerWidth < 768){
+    var tc = document.getElementById('tech-canvas');
+    if(tc) tc.style.display = 'none';
+  }
+
+  // ── COPY FEEDBACK ────────────────────────────────────────────
+  function copyText(e, text){
+    e.preventDefault();
+    // Fallback compatível com file:// e todos os browsers
+    try {
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).catch(function(){});
+      } else {
+        var t = document.createElement('textarea');
+        t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.focus(); t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+      }
+    } catch(err){}
+    var toast = e.currentTarget.querySelector('.copy-toast');
+    if(!toast) return;
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  lucide.createIcons();
+
+  function toggleMenu(){
+    const m=document.getElementById("mobileMenu");
+    const open=m.classList.toggle("hidden")==false;
+    document.getElementById("menuBtn").setAttribute("aria-expanded",String(open));
+    lucide.createIcons();
+  }
+  function closeMenu(){
+    document.getElementById("mobileMenu").classList.add("hidden");
+    document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+  }
+
+  // Reveal on scroll
+  document.querySelectorAll(".reveal").forEach(el=>{
+    new IntersectionObserver((entries,obs)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add("visible"); obs.unobserve(e.target); }
+      });
+    },{threshold:.1}).observe(el);
+  });
+
+  // Soft skills progress bars (anima ap&#243;s reveal)
+  const progObs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.querySelectorAll(".prog-bar-fill").forEach(bar=>{
+          bar.style.width=bar.dataset.width;
+        });
+        progObs.unobserve(e.target);
+      }
+    });
+  },{threshold:.3});
+  document.querySelectorAll(".prog-bar-bg").forEach(b=>progObs.observe(b));
+
+  // Active nav link
+  const sections=document.querySelectorAll("section[id],footer[id]");
+  const navLinks=document.querySelectorAll(".nav-link");
+  window.addEventListener("scroll",()=>{
+    let cur="";
+    sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-110) cur=s.id; });
+    navLinks.forEach(l=>{
+      l.classList.remove("active");
+      if(l.getAttribute("href")==="#"+cur) l.classList.add("active");
+    });
+  });
+
+  // Navbar scroll shadow
+  window.addEventListener("scroll",()=>{
+    const nav=document.getElementById("navbar");
+    nav.style.borderBottomColor=window.scrollY>40?"rgba(82,183,136,.18)":"rgba(82,183,136,.09)";
+    nav.style.boxShadow=window.scrollY>40?"0 4px 28px rgba(0,0,0,.42)":"none";
+  });
+  // ─── CARROSSEL DE EVENTOS ────────────────────────────────────────
+  (function(){
+    // Lista de imagens (evento1.jpg … evento10.jpg)
+    var FOTOS = [];
+    for(var n=1; n<=10; n++){
+      FOTOS.push({ src:'img/evento' + n + '.jpg', alt:'Foto do evento ' + n });
+    }
+
+    var carregadas = [];   // apenas as que existem
+    var cur        = 0;
+    var touchX     = 0;
+
+    var mainImg    = document.getElementById('evt-main-img');
+    var placeholder= document.getElementById('evt-placeholder');
+    var counter    = document.getElementById('evt-counter');
+    var thumbsWrap = document.getElementById('evt-thumbs');
+    var carousel   = document.getElementById('evt-carousel');
+
+    // Pré-carrega imagens para descobrir quais existem
+    function preload(){
+      var pendente = FOTOS.length;
+      FOTOS.forEach(function(foto, i){
+        var tmp = new Image();
+        tmp.onload = function(){
+          carregadas.push({ src:foto.src, alt:foto.alt, idx:i });
+          pendente--;
+          if(pendente === 0) init();
+        };
+        tmp.onerror = function(){
+          pendente--;
+          if(pendente === 0) init();
+        };
+        tmp.src = foto.src;
+      });
+    }
+
+    // Esconder spinner quando carrossel estiver pronto
+    var spinnerShownAt = Date.now();
+    function hideSpinner(){
+      var s = document.getElementById('evt-spinner');
+      if(!s) return;
+      var elapsed = Date.now() - spinnerShownAt;
+      var delay   = Math.max(0, 500 - elapsed); // mínimo 500ms visível
+      setTimeout(function(){ s.style.display = 'none'; }, delay);
+    }
+
+    // Ordenar e montar depois do preload
+    function init(){
+      // Ordenar pela ordem original (idx)
+      carregadas.sort(function(a,b){ return a.idx - b.idx; });
+
+      hideSpinner();
+      if(carregadas.length === 0){
+        mainImg.style.display    = 'none';
+        placeholder.style.display= 'flex';
+        counter.textContent      = '0 / 0';
+        return;
+      }
+
+      // Construir miniaturas
+      carregadas.forEach(function(foto, i){
+        var th  = document.createElement('img');
+        th.src  = foto.src;
+        th.alt  = foto.alt;
+        th.className = 'evt-thumb' + (i===0 ? ' active' : '');
+        th.onclick = function(){ mostrar(i); };
+        thumbsWrap.appendChild(th);
+      });
+
+      mostrar(0);
+    }
+
+    // Mostra foto pelo índice
+    function mostrar(idx){
+      if(!carregadas.length) return;
+      cur = ((idx % carregadas.length) + carregadas.length) % carregadas.length;
+
+      // Fade
+      mainImg.style.opacity = '0';
+      mainImg.style.display = 'block';
+      placeholder.style.display = 'none';
+
+      var entry = carregadas[cur];
+      var tmp   = new Image();
+      tmp.onload = function(){
+        mainImg.src = entry.src;
+        mainImg.alt = entry.alt;
+        mainImg.style.opacity = '1';
+      };
+      tmp.src = entry.src;
+
+      // Contador
+      counter.textContent = (cur + 1) + ' / ' + carregadas.length;
+
+      // Atualizar miniaturas
+      var thumbs = thumbsWrap.querySelectorAll('.evt-thumb');
+      thumbs.forEach(function(th, i){
+        th.classList.toggle('active', i === cur);
+      });
+    }
+
+    function hideSwipeHint(){
+      var h = document.getElementById('evt-swipe-hint');
+      if(h) h.style.display = 'none';
+    }
+
+    // Navegar
+    window.evtNav = function(dir){
+      hideSwipeHint();
+      mostrar(cur + dir);
+    };
+
+    // Swipe no carrossel (mobile)
+    if(carousel){
+      carousel.addEventListener('touchstart', function(e){
+        touchX = e.touches[0].clientX;
+      }, {passive:true});
+      carousel.addEventListener('touchend', function(e){
+        var dx = e.changedTouches[0].clientX - touchX;
+        if(Math.abs(dx) > 40){ hideSwipeHint(); window.evtNav(dx < 0 ? 1 : -1); }
+      });
+    }
+
+    // Teclado (só quando foco está na galeria)
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft')  window.evtNav(-1);
+      if(e.key === 'ArrowRight') window.evtNav(1);
+    });
+
+    // Iniciar pré-carregamento
+    preload();
+  })();
+
+  // ─── CANVAS TECH BACKGROUND ────────────────────────
+  (function(){
+    const canvas = document.getElementById('tech-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, nodes, raf;
+    const NODE_COUNT  = 55;
+    const MAX_DIST    = 160;
+    const NODE_COLOR  = 'rgba(82,183,136,';
+    const LINE_COLOR  = 'rgba(82,183,136,';
+
+    function resize(){
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function initNodes(){
+      nodes = Array.from({length: NODE_COUNT}, () => ({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - .5) * .45,
+        vy: (Math.random() - .5) * .45,
+        r:  Math.random() * 1.8 + .8,
+      }));
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+
+      // linhas entre nós próximos
+      for(let i = 0; i < nodes.length; i++){
+        for(let j = i+1; j < nodes.length; j++){
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if(d < MAX_DIST){
+            const alpha = (1 - d/MAX_DIST) * .28;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = LINE_COLOR + alpha + ')';
+            ctx.lineWidth   = .8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // nós
+      nodes.forEach(n => {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+        ctx.fillStyle = NODE_COLOR + '.55)';
+        ctx.fill();
+        // halo suave
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r + 2.5, 0, Math.PI*2);
+        ctx.fillStyle = NODE_COLOR + '.08)';
+        ctx.fill();
+      });
+    }
+
+    function update(){
+      nodes.forEach(n => {
+        n.x += n.vx;
+        n.y += n.vy;
+        if(n.x < 0 || n.x > W) n.vx *= -1;
+        if(n.y < 0 || n.y > H) n.vy *= -1;
+      });
+    }
+
+    function loop(){
+      update();
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      initNodes();
+    });
+
+    resize();
+    initNodes();
+    loop();
+  })();
+</script>
+</body>
+</html>
